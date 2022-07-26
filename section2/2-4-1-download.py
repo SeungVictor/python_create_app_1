@@ -1,27 +1,28 @@
 import os
 import subprocess
 
-import pytube
+from pytube import YouTube
 
-yt = pytube.YouTube("https://www.youtube.com/watch?v=WH7xsW5Os10") #다운받을 동영상 URL 지정
+YouTube('https://www.youtube.com/watch?v=SvQ9DR-BVuk').streams.first().download()
+yt = YouTube("https://www.youtube.com/watch?v=SvQ9DR-BVuk") 
 
 vids= yt.streams.all()
 
-#영상 형식 리스트 확인
+
 for i in range(len(vids)):
     print(i,'. ',vids[i])
 
-vnum = int(input("다운 받을 화질은? "))
+vnum = int(input("Enter the number of the video you want to download: "))
 
-parent_dir = "C:\section2\download"
-vids[vnum].download(parent_dir) #다운로드 수행
+parent_dir = "."
+vids[vnum].download(parent_dir) # download the video
 
-new_filename = input("변환 할 mp3 파일명은?")
+new_filename = input("Enter the new filename: ")
 
 default_filename = vids[vnum].default_filename 
-subprocess.call(['ffmpeg', '-i',                 #cmd 명령어 수행
+subprocess.call(['ffmpeg', '-i',                 #cmd to rename the file
     os.path.join(parent_dir, default_filename),
     os.path.join(parent_dir, new_filename)
 ])
 
-print('동영상 다운로드 및 mp3 변환 완료!')
+print('Done!')

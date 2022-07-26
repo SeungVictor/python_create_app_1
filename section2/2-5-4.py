@@ -20,7 +20,7 @@ html = """
 """
 soup = BeautifulSoup(html, 'html.parser')
 print('prettify',soup.prettify())
-h1 = soup.select_one("div#main > h1").string
+h1 = soup.select_one("div#main > h1").string # 리스트를 하나만가져오는것 select_one
 print("h1 =", h1)
 li_list = soup.select("div#main > ul.lecs > li")
 for li in li_list:

@@ -15,13 +15,19 @@ a = soup.find_all("a", string="daum")
 b = soup.find_all(string=["naver", "daum"])
 c = soup.find_all("a", limit=2)
 print('a',a)
+print('----------------')
 print('b',b)
+print('----------------')
 print('c',c)
+print('----------------')
 links = soup.find_all("a")
 print('links',links)
+print('----------------')
 # 출력
 for a in links:
     print('a',type(a),a)
+    print('----------------')
     href = a.attrs['href']
     text = a.string
     print(text, ">", href)
+    print('----------------')
