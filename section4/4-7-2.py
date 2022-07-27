@@ -22,7 +22,7 @@ print(d_frame)
 print(d_frame.index)
 print(d_frame.values)
 print(d_frame['City']) #columns
-print(d_frame.ix['one'])   #rows
+print(d_frame.loc['one'])   #rows
 
 #요약
 print(d_frame.describe())
