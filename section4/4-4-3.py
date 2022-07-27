@@ -6,9 +6,9 @@ import simplejson as json
 url = "https://api.github.com/repositories"
 
 #경로 & 파일명
-savename = "c:/section4/repo.json"
+savename = "./section4/repo.json"
 
-if not os.path.exists(url):
+if not os.path.exists(savename):
     req.urlretrieve(url, savename)
 
 items = json.load(open(savename, "r", encoding="utf-8"))

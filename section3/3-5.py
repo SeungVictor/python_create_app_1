@@ -22,16 +22,17 @@ with requests.Session() as s:
     s.get(URL)
     #Login 정보 Payload
     LOGIN_INFO = {
-        'identification': '아이디',
-        'password': '비밀번호',
+        'identification': 'psseung712',
+        'password': 'forsim712!',
         'csrfmiddlewaretoken': s.cookies['csrftoken']
     }
+    #print('token', s.cookies['csrftoken'])
     #요청
     response = s.post(URL,data=LOGIN_INFO,headers={'User-Agent':str(ua.chrome), 'Referer':'https://www.wishket.com/accounts/login/'})
     #HTML 결과 확인
     #print('response',response.text)
     if response.status_code == 200 and response.ok:
         soup = BeautifulSoup(response.text,'html.parser')
-        projectList = soup.select("table.table-responsive > tbody > tr")
+        projectList = soup.select("div.user-project>div")
         for i in projectList:
-            print(i.find('th').string,i.find('td').text)
+            print(i.text)

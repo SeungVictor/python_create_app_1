@@ -8,7 +8,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 url = "http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108"
-savename = "C:/section4/forecast.xml"
+savename = "./section4/forecast.xml"
 if not os.path.exists(savename):
     req.urlretrieve(url, savename)
 
@@ -28,9 +28,11 @@ for location in soup.find_all("location"):
         info[loc].append(tmn.string)
 
 #print(info)
+print(list(info.keys()))
+print(info.values)
 
 # 각 지역의 날씨 출력
-with open('C:/section4/forecast.txt', "wt", encoding="utf-8") as f:
+with open('./section4/forecast.txt', "wt", encoding="utf-8") as f:
     for loc in sorted(info.keys()):
         print("+", loc)
         f.write(str(loc)+'\n')

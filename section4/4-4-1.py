@@ -32,11 +32,11 @@ print(type(d))
 print(d)
 
 #json 파일 쓰기(dumps)
-with open('c:/section4/member.json','w') as outfile:
+with open('./section4/member.json','w') as outfile:
     outfile.write(e)
 
 #json 파일 읽기(loads)
-with open('c:/section4/member.json', 'r') as infile:
+with open('./section4/member.json', 'r') as infile:
     r = json.loads(infile.read())
     print('=====')
     #print(type(r))

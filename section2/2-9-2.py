@@ -16,10 +16,16 @@ class SelfTest:
 f = SelfTest()
 #f.function1()
 print(id(f))
-f.function2()
+f.function2()#인스턴스 주소값이 전달됨 
 
+#첫번째 function호출하려면? instance하지않고 namespace를 클래스에서 바로 호출해야함
+print("----------------------------------------------------")
 print(SelfTest.__dict__)
+print(SelfTest.function1())
+print("----------------------------------------------------")
 SelfTest.function1()
 
+print("----------------------------------------------------")
 f2 = SelfTest()
 SelfTest.function2(f2)
+print("----------------------------------------------------")

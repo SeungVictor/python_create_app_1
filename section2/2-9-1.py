@@ -7,7 +7,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 class UserInfo:
     #__init__
-    def set_info(self, name, phone):
+    def __init__(self, name, phone):
         self.name = name
         self.phone = phone
 
@@ -20,10 +20,10 @@ class UserInfo:
     def __del__(self):
         print("delete")
 
-user1 = UserInfo()
-user2 = UserInfo()
-user1.set_info("User1","010-7777-7777")
-user2.set_info("User2","010-7778-7778")
+user1 = UserInfo("User1","010-7777-7777")
+user2 = UserInfo("User2","010-7778-7778")
+# user1.set_info("User1","010-7777-7777")
+# user2.set_info("User2","010-7778-7778")
 user1.print_info()
 print(type(user1))
 print(id(user1))

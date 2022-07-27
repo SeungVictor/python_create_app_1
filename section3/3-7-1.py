@@ -3,6 +3,13 @@ import io
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
+import pyperclip
+from selenium.webdriver.common.keys import Keys
+from fake_useragent import UserAgent
+user_id = 'ps712'
+user_pw = 'chzhfflt1!'
+ua = UserAgent()
+print(ua.chrome)
 
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
@@ -11,23 +18,33 @@ class NcafeWriteAtt:
     #초기화 실행(webdriver 설정)
     def __init__(self):
         chrome_options = Options()
-        chrome_options.add_argument("--headless") #CLI (User-agent)
-        self.driver = webdriver.Chrome(chrome_options=chrome_options,executable_path="c:/section3/webdriver/chrome/chromedriver")
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument("disable-gpu")
+        chrome_options.add_argument("user-agent="+ua.chrome)
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.implicitly_wait(5)
 
     #네이버 카페 로그인 && 출석 체크
     def writeAttendCheck(self):
         self.driver.get('https://nid.naver.com/nidlogin.login')
-        self.driver.find_element_by_name('id').send_keys('')
-        self.driver.find_element_by_name('pw').send_keys('')
-        self.driver.find_element_by_xpath('//*[@id="frmNIDLogin"]/fieldset/input').click()
-        self.driver.implicitly_wait(30)
-        self.driver.get('http://cafe.naver.com/paramsx?iframe_url=/AttendanceView.nhn%3Fsearch.clubid=19756449%26search.menuid=103')
-        self.driver.implicitly_wait(30)
-        self.driver.switch_to_frame('cafe_main')
-        self.driver.find_element_by_id('cmtinput').send_keys('반갑습니다!!^^*.')
-        self.driver.find_element_by_xpath('//*[@id="main-area"]/div[6]/table/tbody/tr[4]/td/table/tbody/tr/td[3]/a/img').click()
-        time.sleep(3)
+        pyperclip.copy(user_id)
+        self.driver.find_element('xpath','//*[@id="id"]').send_keys(Keys.CONTROL, 'v')
+        self.driver.implicitly_wait(3)
+        pyperclip.copy(user_pw)
+        self.driver.find_element('xpath','//*[@id="pw"]').send_keys(Keys.CONTROL, 'v')
+        self.driver.implicitly_wait(3)
+        self.driver.find_element('xpath','//*[@id="log.login"]/span').click()
+        self.driver.implicitly_wait(3)      
+        print("로그인 완료")
+        self.driver.implicitly_wait(3)
+        self.driver.get('https://cafe.naver.com/AttendanceView.nhn?search.clubid=12730407&search.menuid=99&search.attendyear=2022&search.attendmonth=07&search.attendday=27&search.page=1&lcs=Y')
+        self.driver.implicitly_wait(3)
+        self.driver.switch_to.frame('cafe_main')
+        self.driver.implicitly_wait(3)
+        self.driver.find_element('xpath','//*[@id="cmtinput"]').send_keys('출석')
+        self.driver.implicitly_wait(3)
+        self.driver.find_element('xpath','//*[@id="btn-submit-attendance"]').click()
+        time.sleep(1)
 
     # 소멸자
     def __del__(self):
