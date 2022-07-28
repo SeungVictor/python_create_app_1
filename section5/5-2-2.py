@@ -8,7 +8,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 #파일 DB 로드
-db = TinyDB('c:/section5/databases/database.db')
+db = TinyDB('./section5/databases/database.db')
 
 #메모리 DB 로드
 #db = TinyDB(storage=MemoryStorage)
@@ -16,6 +16,17 @@ db = TinyDB('c:/section5/databases/database.db')
 #users, todos 테이블 선택
 users = db.table('users')
 todos = db.table('todos')
+
+with open('./section5/data/users.json','r') as infile:
+    r = json.loads(infile.read())
+    for p in r:
+        users.insert(p)
+
+#테이블 데이터 전체 삽입2
+with open('./section5/data/todos.json','r') as infile:
+    r = json.loads(infile.read())
+    for p in r:
+        todos.insert(p)
 
 #users 테이블 출력
 for item in users:
@@ -51,17 +62,18 @@ for item in users:
     user1 = todos.search(Todos.userId == item['id'])
     for todo in user1:
         print(todo)
-
+print('-----------------------------------------------------')
 #쿼리 객체 사용 수정
 users.update({'username': 'kim'}, Users.id == 3)
 print(users.search(Users.id == 3))
 
+print('-----------------------------------------------------')
 #쿼리 객체 사용 삭제
 users.remove(Users.id == 3)
 print(users.search(Users.id == 3))
 
 #DB 전체 삭제
-db.purge()
+db.truncate()
 
 #DB 전체 출력
 db.all()

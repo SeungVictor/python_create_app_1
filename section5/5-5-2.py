@@ -1,4 +1,5 @@
-import pandas_datareader.data as web
+# pip install -U finance-datareader 설치 후 사용
+import FinanceDataReader as fdr
 import pandas as pd
 import datetime
 import pymysql
@@ -17,8 +18,7 @@ try:
         start = datetime.datetime(2018,2,4)
         end = datetime.datetime(2018,2,25)
 
-        #Google 정보 호출
-        gs = web.DataReader('KRX: 090430', 'google', start, end) #아모레퍼시픽 주가 읽기
+        gs = fdr.DataReader('090430', start, end) #아모레퍼시픽 주가 읽기
 
         #데이터 출력
         print(gs)

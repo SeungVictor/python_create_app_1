@@ -6,7 +6,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 #파일 DB 생성
-db = TinyDB('c:/section5/databases/database.db')
+db = TinyDB('./section5/databases/database.db')
 
 #데이터 삽입
 db.insert({'name': 'kim', 'email': 'test1@daum.net'})
@@ -20,6 +20,7 @@ el = db.get(SQL.name == 'kim')
 #id값 출력
 print(el)
 print(el.doc_id)
+print('-----------------------------------------------------')
 
 db.update({'email': 'test1@google.com'}, doc_ids=[3])
 db.update({'email': 'test1@google.com'}, doc_ids=[1,2,3])

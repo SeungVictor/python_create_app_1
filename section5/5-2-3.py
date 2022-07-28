@@ -8,7 +8,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 #파일 DB 로드
-db = TinyDB('c:/section5/databases/database.db')
+db = TinyDB('./section5/databases/database.db')
 
 #users, todos 테이블 선택
 users = db.table('users')
@@ -24,9 +24,12 @@ print('result_u',users.search(Users.id == 3))
 print('result_u',users.search(Users['id'] == 3))
 print('result_u',users.search(where('id') == 3))
 print('result_u',users.search(Query()['id'] == 3))
+print('-----------------------------------------------------')
 print('result_u',users.search(where('address')['zipcode'] == '59590-4157'))
 print('result_u',users.search(where('address').zipcode == '59590-4157'))
 print('result_u',user_3)
+
+print('-----------------------------------------------------')
 
 #Todos 여러가지 조회 방법
 todo_t = todos.search(Todos.completed == True)
@@ -35,23 +38,24 @@ print('result_t',todos.search(Todos['completed'] == True))
 print('result_t',todos.search(where('completed') == True))
 print('result_t',todos.search(Query()['completed'] == True))
 print('result_t',todo_t)
+print('-----------------------------------------------------')
 
 #고급 쿼리
 print('exist1',users.search(Users.email.exists()))
 print('exist2',users.search(Users['email'].exists()))
-
+print('-----------------------------------------------------')
 #정규표현식
 print('matches',users.search(Users.username.matches('[aZ]*')))
-
+print('-----------------------------------------------------')
 #NOT
 print('negate',users.search(~(Users.username == 'Moriah.Stanton')))
-
+print('-----------------------------------------------------')
 #OR
 print('or',users.search((Users.username == 'Moriah.Stanton') | (Users.username == 'Samantha')))
-
+print('-----------------------------------------------------')
 #AND
 print('and',users.search((Users.username == 'Moriah.Stanton') & (Users.id == 10)))
-
+print('-----------------------------------------------------')
 #기타 함수
 print('len',len(users))
 print('get',users.get(Users.username == 'Moriah.Stanton'))

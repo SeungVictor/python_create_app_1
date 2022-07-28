@@ -10,8 +10,8 @@ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 #파일 DB 생성
-db = TinyDB('c:/section5/databases/database.db',default_table='todos') #테이블명 지정안하면 default로 생성
-db = TinyDB('c:/section5/databases/database.db',default_table='users')
+db = TinyDB('./section5/databases/database.db','todos') #테이블명 지정안하면 default로 생성
+db = TinyDB('./section5/databases/database.db','users') #default_table 지원안됨 
 
 #메모리 DB 생성
 #db = TinyDB(storage=MemoryStorage, default_table='todos')
@@ -26,13 +26,13 @@ users.insert({'name': 'kim', 'email': 'test@google.com'})
 todos.insert({'name': 'homework', 'complete': False})
 
 #테이블 데이터 전체 삽입1
-with open('c:/section5/data/users.json','r') as infile:
+with open('./section5/data/users.json','r') as infile:
     r = json.loads(infile.read())
     for p in r:
         users.insert(p)
 
 #테이블 데이터 전체 삽입2
-with open('c:/section5/data/todos.json','r') as infile:
+with open('./section5/data/todos.json','r') as infile:
     r = json.loads(infile.read())
     for p in r:
         todos.insert(p)
@@ -45,12 +45,10 @@ print(todos.all())
 print(db.tables())
 
 #전체 데이터 삭제
-users.purge()
-todos.purge()
+users.truncate()
+todos.truncate()
 
-db.purge_table('users')
-db.purge_table('todos')
-
-db.purge_tables()
+db.remove('users')
+db.remove('todos')
 
 db.close()
