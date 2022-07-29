@@ -2,7 +2,7 @@ import sqlite3
 import simplejson as json
 
 #DB생성(파일)
-conn = sqlite3.connect('C:/Django/workspace/python-class1/section5/database/sqlite.db')
+conn = sqlite3.connect('./section5/database/sqlite.db')
 
 #Cursor연결
 c = conn.cursor()
@@ -37,7 +37,7 @@ for user in c.execute('SELECT * FROM users'):
 print("users db deleted : ", conn.execute("delete from users").rowcount, "rows")
 
 #커밋
-conn.commit()
+#conn.commit()
 
 #접속 해제
 conn.close()

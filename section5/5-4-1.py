@@ -20,19 +20,19 @@ print(type(c))
 c.execute('create database pytnon_app2') #DDL, DML, DCL 사용 가능
 
 #커서 반환
-c.close()
+#c.close()
 
 #접속 해제
-conn.close()
+#conn.close()
 
 #트랜잭션 시작
-conn.begin()
+#conn.begin()
 
 #커밋
-conn.commit()
+#conn.commit()
 
 #롤백
-conn.rollback()
+#conn.rollback()
 
 #날짜 생성
 now = datetime.datetime.now()
@@ -40,8 +40,10 @@ print('now',now)
 nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
 print('nowDatetime',nowDatetime)
 
+#sql """   """ 변수만들어서 넣어도됨 (여러줄 입력)
 
-#테이블 생성(데이터 타입 : 공식 레퍼런스 참조 또는 검색 참조)
+
+#테이블 생성(데이터 타입 : 공식 레퍼런스 참조 또는 검색 참조) \ 줄바꿈처리 varchar 가변형 str datatype
 c.execute("CREATE TABLE IF NOT EXISTS users(id bigint(20) NOT NULL, \
                                             username varchar(20) NOT NULL, \
                                             email varchar(30),  \
@@ -62,6 +64,7 @@ try:
             (4 ,'cho','cho@naver.com', '010-3333-3333', 'cho.com', nowDatetime),
             (5 ,'noh','noh@naver.com', '010-4444-4444', 'noh.com', nowDatetime)
         )
+        # ? 맵핑은 여기서 안됨 %s로처리 해야함
         c.executemany("INSERT INTO users(id, username, email, phone, website, regdate) VALUES (%s, %s, %s, %s, %s, %s)", userList)
 
     conn.commit()
@@ -72,7 +75,7 @@ finally:
 try:
     with conn.cursor() as c:
         #JSON to MySQL 삽입1
-        with open('C:/Django/workspace/python-class1/section5/data/users.json','r') as infile:
+        with open('./section5/data/users.json','r') as infile:
             r = json.load(infile)
             userData = []
             for user in r:
@@ -88,7 +91,7 @@ finally:
 try:
     with conn.cursor() as c:
         #JSON to MySQL 삽입2
-        with open('C:/Django/workspace/python-class1/section5/data/users.json','r') as infile:
+        with open('./section5/data/users.json','r') as infile:
             r = json.load(infile)
             for user in r:
                 c.execute("INSERT INTO users(id, username, email, phone, website, regdate) VALUES (%s, %s, %s, %s, %s, %s)", (user['id'], user['username'], user['email'], user['phone'], user['website'], nowDatetime))
