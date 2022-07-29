@@ -18,9 +18,14 @@ class NcafeWriteAtt:
     #초기화 실행(webdriver 설정)
     def __init__(self):
         chrome_options = Options()
-        chrome_options.add_argument('--headless')
+        #chrome_options.add_argument('--headless')
         chrome_options.add_argument("disable-gpu")
-        chrome_options.add_argument("user-agent="+ua.chrome)
+        #chrome_options.add_argument("user-agent="+ua.chrome)
+        chrome_options.add_argument('headless')
+        chrome_options.add_argument('window-size=1920x1080')
+        chrome_options.add_argument("disable-gpu")
+        chrome_options.add_argument("User-Agent:  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36")
+        chrome_options.add_argument("lang=ko_KR")
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.implicitly_wait(5)
 
